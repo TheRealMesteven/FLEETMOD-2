@@ -2,9 +2,6 @@
 
 namespace FLEETMOD_2.Core.Warp
 {
-	/*
-	 * Unsure of use as PULSAR code is completely more simple.
-	 * 
 	[HarmonyPatch(typeof(PLServer), "CPEI_HandleActivateWarpDrive")]
 	internal class CPEI_HandleActivateWarpDrive
 	{
@@ -16,7 +13,7 @@ namespace FLEETMOD_2.Core.Warp
 			}
 			else
 			{
-				if (!PLServer.Instance.GetPlayerFromPlayerID(playerID).GetPlayerName(false).Contains("•"))
+				if (!Global.FleetModClients.Contains(playerID))
 				{
 					return false;
 				}
@@ -75,5 +72,4 @@ namespace FLEETMOD_2.Core.Warp
 			}
 		}
 	}
-	*/
 }

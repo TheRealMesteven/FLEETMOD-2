@@ -11,9 +11,10 @@ namespace FLEETMOD_2.Core.Warp
             int UnalignedShips = 0;
             int UnchargedShips = 0;
             int UnFueledShips = 0;
-            foreach (PLShipInfoBase plshipInfoBase in PLEncounterManager.Instance.AllShips.Values)
+            foreach (int pLShipID in Global.GetFleetShips())
             {
-                if (plshipInfoBase.TagID < -3 && plshipInfoBase != null)
+                PLShipInfoBase plshipInfoBase = PLEncounterManager.Instance.GetShipFromID(pLShipID);
+                if (plshipInfoBase.GetIsPlayerShip() && plshipInfoBase != null)
                 {
                     if (PLServer.Instance.m_ShipCourseGoals.Count > 0)
                     {
