@@ -11,13 +11,11 @@ namespace FLEETMOD_2.Core
             if (!Global.ModEnabled) return true;
             if (Global.GetFleetShips().Contains(__instance.ShipID))
             {
-                Logger.Info($"[FM2DB] {__instance.ShipNameValue} configured as FRIENDLY ship");
                 __result = true;
                 return false;
             }
             else
             {
-                Logger.Info($"[FM2DB] {__instance.ShipNameValue} configured as HOSTILE ship");
                 return true;
             }
 
