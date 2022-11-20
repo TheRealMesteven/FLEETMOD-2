@@ -7,6 +7,7 @@ namespace FLEETMOD_2
     {
         public static bool ModEnabled = true;
         public static List<ShipInfo> FleetShips = new List<ShipInfo>();
+        public static List<int> FleetModClients = new List<int>();
 
         public static List<int> GetFleetShips()
         {

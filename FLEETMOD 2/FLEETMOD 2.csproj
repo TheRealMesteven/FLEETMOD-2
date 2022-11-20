@@ -74,13 +74,19 @@
   <ItemGroup>
     <Compile Include="Core\AddHostileShip.cs" />
     <Compile Include="Core\GetIsPlayerShip.cs" />
+    <Compile Include="Core\ShouldBeHostileToShip.cs" />
+    <Compile Include="Core\Warp\CPEI_HandleActivateWarpDrive.cs" />
+    <Compile Include="Core\Warp\JumpBtnClick.cs" />
+    <Compile Include="Core\Warp\NetworkToggleWarpCharge.cs" />
+    <Compile Include="Core\Warp\OnButtonClick.cs" />
+    <Compile Include="Core\Warp\OnEndWarp.cs" />
+    <Compile Include="Core\Warp\OnWarp.cs" />
+    <Compile Include="Core\Warp\WarpSkipButtonClicked.cs" />
     <Compile Include="Debug.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Global.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Warp\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
