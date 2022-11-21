@@ -31,6 +31,10 @@ namespace FLEETMOD_2
                     {
                         Messaging.Echo(Player, $"{Global.GetFleetShips().Count} \n {Player.MyCurrentTLI.MyShipInfo.ShipNameValue} {(Global.GetFleetShips().Contains(Player.MyCurrentTLI.MyShipInfo.ShipID) ? "IS" : "IS NOT")} part of the Fleet");
                     }
+                    if (!PLNetworkManager.Instance.IsTyping && Input.GetKeyDown(KeyCode.F3))
+                    {
+                        Messaging.Echo(Player, $"{Global.FleetModClients.Count}");
+                    }
                 }
             }
         }

@@ -90,6 +90,7 @@
     <Compile Include="Mod.cs" />
     <Compile Include="ModMessages\FleetModClient.cs" />
     <Compile Include="ModMessages\FleetModClientSync.cs" />
+    <Compile Include="ModMessages\FleetShipSync.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Global.cs" />
   </ItemGroup>
