@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using System;
 
 namespace FLEETMOD_2.Core.Warp
 {
@@ -75,7 +76,7 @@ namespace FLEETMOD_2.Core.Warp
                         {
                             if (PLServer.Instance.GetPlayerFromPlayerID(0).GetPhotonPlayer().NickName == "skipwarp" && PLNetworkManager.Instance.LocalPlayer.GetClassID() == 0)
                             {
-                                PLInGameUI.Instance.WarpSkipButtonClicked();
+                                PLServer.Instance.GetPlayerFromPlayerID(0).StartingShip.photonView.RPC("SkipWarp", PhotonTargets.All, Array.Empty<object>());
                             }
                             break;
                         }

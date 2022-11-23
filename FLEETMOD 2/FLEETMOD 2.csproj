@@ -47,6 +47,14 @@
       <HintPath>lib\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="com.rlabrecque.steamworks.net">
+      <HintPath>lib\com.rlabrecque.steamworks.net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Photon3Unity3D">
+      <HintPath>lib\Photon3Unity3D.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="PLInputBase">
       <HintPath>lib\PLInputBase.dll</HintPath>
       <Private>False</Private>
@@ -73,6 +81,7 @@
     </Reference>
     <Reference Include="UnityEngine.InputLegacyModule">
       <HintPath>lib\UnityEngine.InputLegacyModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>lib\UnityEngine.UI.dll</HintPath>
@@ -82,6 +91,7 @@
   <ItemGroup>
     <Compile Include="Core\AddHostileShip.cs" />
     <Compile Include="Core\GetIsPlayerShip.cs" />
+    <Compile Include="Core\Server\PlayerLimit.cs" />
     <Compile Include="Core\ShouldBeHostileToShip.cs" />
     <Compile Include="Core\Start\SpawnPawnForPlayer.cs" />
     <Compile Include="Core\Start\SpawnPlayerShip.cs" />

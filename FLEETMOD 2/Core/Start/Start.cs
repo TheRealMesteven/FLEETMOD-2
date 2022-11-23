@@ -11,6 +11,7 @@ namespace FLEETMOD_2.Core.Start
         {
             Global.FleetShips.Clear();
             Global.FleetModClients.Clear();
+            Global.FleetModSpawningPlayers.Clear();
         }
     }
 }

@@ -10,6 +10,7 @@ namespace FLEETMOD_2
         public static bool ModEnabled = true;
         public static List<ShipInfo> FleetShips = new List<ShipInfo>();
         public static List<int> FleetModClients = new List<int>();
+        public static Dictionary<int, int> FleetModSpawningPlayers = new Dictionary<int, int>();
 
         /// <summary>
         /// Returns a list of Fleet ShipIDs
@@ -38,6 +39,21 @@ namespace FLEETMOD_2
                 if (sh.ShipID == ShipID)
                 {
                     return FleetShips.IndexOf(sh);
+                }
+            }
+            return -1;
+        }
+
+        /// <summary>
+        /// Gets the PlayerID's Ship
+        /// </summary>
+        public static int GetPlayersShip(int PlayerID)
+        {
+            foreach (ShipInfo sh in FleetShips)
+            {
+                if (sh.Crew.Contains(PlayerID))
+                {
+                    return sh.ShipID;
                 }
             }
             return -1;

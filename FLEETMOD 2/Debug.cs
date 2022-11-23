@@ -4,6 +4,7 @@ using UnityEngine;
 using PulsarModLoader.Utilities;
 using System.Linq;
 using PulsarModLoader;
+using System.Text;
 
 namespace FLEETMOD_2
 {
@@ -37,7 +38,26 @@ namespace FLEETMOD_2
                     }
                     if (!PLNetworkManager.Instance.IsTyping && Input.GetKeyDown(KeyCode.F3))
                     {
-                        Messaging.Echo(Player, $"{Global.FleetModClients.Count}");
+                        Messaging.Echo(Player, $"Count of Fleetmod Clients: {Global.FleetModClients.Count}");
+                    }
+                    if (!PLNetworkManager.Instance.IsTyping && Input.GetKeyDown(KeyCode.F4))
+                    {
+                        StringBuilder Sb = new StringBuilder();
+                        foreach (ShipInfo shipInfo in Global.FleetShips)
+                        {
+                            if (shipInfo != null)
+                            {
+                                Sb.AppendLine($"{PLEncounterManager.Instance.GetShipFromID(shipInfo.ShipID).ShipNameValue} | {shipInfo.Crew.Count} | Crew Output: ");
+                                if (shipInfo.Crew.Count > 0)
+                                {
+                                    foreach (int i in shipInfo.Crew)
+                                    {
+                                        Sb.Append($"{PLServer.Instance.GetPlayerFromPlayerID(i).GetPlayerName()} ");
+                                    }
+                                }
+                            }
+                        }
+                        Messaging.Echo(PLNetworkManager.Instance.LocalPlayer, Sb.ToString());
                     }
                 }
             }
