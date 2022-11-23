@@ -15,7 +15,7 @@ namespace FLEETMOD_2.Core.Ship
 		protected static FieldInfo FieldInfo = AccessTools.Field(typeof(PLShipInfo), "LastIntruderAlarmStartedTime");
         public static bool Prefix(PLShipInfo __instance)
         {
-            if (!Global.ModEnabled || Global.GetFleetShips().Contains(__instance.ShipID)) return true;
+            if (!Global.ModEnabled || !Global.GetFleetShips().Contains(__instance.ShipID)) return true;
             if (__instance.IsAuxSystemActive(6))
             {
 				bool flag = false;
