@@ -16,7 +16,7 @@ namespace FLEETMOD_2.Core.Warp
                 PLShipInfoBase plshipInfoBase = PLEncounterManager.Instance.GetShipFromID(pLShipID);
                 if (plshipInfoBase.GetIsPlayerShip() && plshipInfoBase != null)
                 {
-                    if (PLServer.Instance.m_ShipCourseGoals.Count > 0)
+                    if (PLStarmap.Instance.CurrentShipPath.Count > 1)
                     {
                         if (PLServer.Instance.ClientHasFullStarmap && plshipInfoBase.WarpTargetID != PLStarmap.Instance.CurrentShipPath[1].ID)
                         {
