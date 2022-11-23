@@ -12,18 +12,8 @@ namespace FLEETMOD_2.ModMessages
         {
             if (!Global.ModEnabled) return;
             List<ShipInfo> shipInfo = Global.DeSerializeFleetShips(arguments.Cast<byte>().ToArray());
-            if (shipInfo == null || shipInfo.Count() == 0) return;
-            if (Global.FleetShips == null || shipInfo.Count >= Global.FleetShips.Count())
-            {
-                Global.FleetShips = shipInfo;
-            }
-            else
-            {
-                foreach (ShipInfo shipinfo in shipInfo)
-                {
-                    Global.UpdateFleetShips(shipinfo.ShipID, shipinfo);
-                }
-            }
+            if (shipInfo == null || shipInfo.Count() == 0 || PhotonNetwork.isMasterClient) return;
+            Global.FleetShips = shipInfo;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace FLEETMOD_2
             foreach (ShipInfo sh in FleetShips)
             {
                 //Logger.Info($"[GFS] {sh != null} | {PLEncounterManager.Instance != null} | {sh.ShipID} | {PLEncounterManager.Instance.GetShipFromID(sh.ShipID) != null}");
-                if (sh != null && PLEncounterManager.Instance.GetShipFromID(sh.ShipID) != null)
+                if (sh != null && PLEncounterManager.Instance != null && PLEncounterManager.Instance.GetShipFromID(sh.ShipID) != null)
                 {
                     ShipIDs.Add(sh.ShipID);
                 }
@@ -65,6 +65,7 @@ namespace FLEETMOD_2
         public static byte[] SerializeFleetShips(List<ShipInfo> shipInfos)
         {
             MemoryStream dataStream = new MemoryStream();
+            dataStream.Position = 0;
             using (BinaryWriter writer = new BinaryWriter(dataStream))
             {
                 writer.Write(shipInfos.Count());
@@ -97,7 +98,7 @@ namespace FLEETMOD_2
                 using (BinaryReader reader = new BinaryReader(memoryStream))
                 {
                     int shipInfosCount = reader.ReadInt32();
-                    ShipInfo[] shipInfos = new ShipInfo[shipInfosCount];
+                    List<ShipInfo> shipInfos = new List<ShipInfo>();
                     for (int i = 0; i < shipInfosCount; i++)
                     {
                         int ShipID = reader.ReadInt32();
@@ -112,9 +113,9 @@ namespace FLEETMOD_2
                         {
                             RoleLimits.Append(reader.ReadInt32());
                         }
-                        shipInfos.Append(new ShipInfo(ShipID, Crew.ToList(), RoleLimits));
+                        shipInfos.Add(new ShipInfo(ShipID, Crew.ToList(), RoleLimits));
                     }
-                    return shipInfos.ToList();
+                    return shipInfos;
                 }
             }
             catch (Exception ex)

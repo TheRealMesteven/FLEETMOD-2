@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using PulsarModLoader.Utilities;
+using System.Linq;
+using PulsarModLoader;
 
 namespace FLEETMOD_2
 {
@@ -19,13 +21,15 @@ namespace FLEETMOD_2
                     {
                         GameObject gameObject = PhotonNetwork.Instantiate("NetworkPrefabs/" + PLGlobal.Instance.PlayerShipNetworkPrefabNames[0], new Vector3(50f, 50f, 50f), Quaternion.identity, 0, null);
                         gameObject.GetComponent<PLShipInfo>().SetShipID(PLServer.ServerSpaceTargetIDCounter++);
-                        Global.FleetShips.Add(new ShipInfo(gameObject.GetComponent<PLShipInfo>().ShipID, new List<int>()));
+                        ShipInfo shipInfo = new ShipInfo(gameObject.GetComponent<PLShipInfo>().ShipID, new List<int>());
+                        Global.FleetShips.Add(shipInfo);
                         gameObject.GetComponent<PLShipInfo>().AutoTarget = false;
                         gameObject.GetComponent<PLShipInfo>().TeamID = 1;
                         gameObject.GetComponent<PLShipInfo>().OnIsNewStartingShip();
                         gameObject.GetComponent<PLShipInfo>().ShipNameValue = $"Test Ship {Random.Range(0, 50)}";
                         gameObject.GetComponent<PLShipInfo>().LastAIAutoYellowAlertSetupTime = Time.time;
                         gameObject.GetComponent<PLShipInfo>().SetupShipStats(false, true);
+                        ModMessage.SendRPC("Mest.Fleetmod", "FLEETMOD_2.ModMessages.FleetShipSync", PhotonTargets.Others, Global.SerializeFleetShips(Global.FleetShips).Cast<object>().ToArray());
                     }
                     if (!PLNetworkManager.Instance.IsTyping && Input.GetKeyDown(KeyCode.F2))
                     {
