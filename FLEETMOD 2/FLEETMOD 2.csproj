@@ -93,6 +93,7 @@
     <Compile Include="Core\Ship\FleetShipIsPlayerShip.cs" />
     <Compile Include="Core\Ship\GetIsPlayerShip.cs" />
     <Compile Include="Core\Server\PlayerLimit.cs" />
+    <Compile Include="Core\Ship\IntruderAlarm.cs" />
     <Compile Include="Core\Ship\ShouldBeHostileToShip.cs" />
     <Compile Include="Core\Setup\SpawnPawnForPlayer.cs" />
     <Compile Include="Core\Setup\SpawnPlayerShip.cs" />
