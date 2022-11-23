@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Ship\AddHostileShip.cs" />
+    <Compile Include="Core\Ship\FleetShipIsPlayerShip.cs" />
     <Compile Include="Core\Ship\GetIsPlayerShip.cs" />
     <Compile Include="Core\Server\PlayerLimit.cs" />
     <Compile Include="Core\Ship\ShouldBeHostileToShip.cs" />
@@ -114,6 +115,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Global.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Core\Visuals\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
