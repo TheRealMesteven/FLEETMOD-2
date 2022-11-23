@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using PulsarModLoader.Utilities;
 
-namespace FLEETMOD_2.Core
+namespace FLEETMOD_2.Core.Ship
 {
     [HarmonyPatch(typeof(PLShipInfoBase), "GetIsPlayerShip")]
     internal class GetIsPlayerShipPatch

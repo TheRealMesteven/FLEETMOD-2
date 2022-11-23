@@ -3,7 +3,7 @@ using PulsarModLoader;
 using PulsarModLoader.Utilities;
 using System.Linq;
 
-namespace FLEETMOD_2.Core.Start
+namespace FLEETMOD_2.Core.Setup
 {
     [HarmonyPatch(typeof(PLPlayer), "SpawnPawnForPlayer")]
     internal class SpawnPawnForPlayer

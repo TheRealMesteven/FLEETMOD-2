@@ -89,13 +89,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\AddHostileShip.cs" />
-    <Compile Include="Core\GetIsPlayerShip.cs" />
+    <Compile Include="Core\Ship\AddHostileShip.cs" />
+    <Compile Include="Core\Ship\GetIsPlayerShip.cs" />
     <Compile Include="Core\Server\PlayerLimit.cs" />
-    <Compile Include="Core\ShouldBeHostileToShip.cs" />
-    <Compile Include="Core\Start\SpawnPawnForPlayer.cs" />
-    <Compile Include="Core\Start\SpawnPlayerShip.cs" />
-    <Compile Include="Core\Start\Start.cs" />
+    <Compile Include="Core\Ship\ShouldBeHostileToShip.cs" />
+    <Compile Include="Core\Setup\SpawnPawnForPlayer.cs" />
+    <Compile Include="Core\Setup\SpawnPlayerShip.cs" />
+    <Compile Include="Core\Setup\Start.cs" />
     <Compile Include="Core\Warp\CPEI_HandleActivateWarpDrive.cs" />
     <Compile Include="Core\Warp\JumpBtnClick.cs" />
     <Compile Include="Core\Warp\NetworkToggleWarpCharge.cs" />

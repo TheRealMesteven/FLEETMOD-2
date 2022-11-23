@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 
-namespace FLEETMOD_2.Core
+namespace FLEETMOD_2.Core.Ship
 {
 	[HarmonyPatch(typeof(PLShipInfoBase), "ShouldBeHostileToShip")]
 	internal class ShouldBeHostileToShip

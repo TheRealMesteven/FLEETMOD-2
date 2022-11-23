@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using PulsarModLoader.Utilities;
 
-namespace FLEETMOD_2.Core.Start
+namespace FLEETMOD_2.Core.Setup
 {
     [HarmonyPatch(typeof(PLServer), "Start")]
     class Start

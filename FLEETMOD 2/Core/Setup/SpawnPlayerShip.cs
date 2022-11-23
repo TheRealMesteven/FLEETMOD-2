@@ -4,7 +4,7 @@ using PulsarModLoader.Utilities;
 using PulsarModLoader;
 using System.Linq;
 
-namespace FLEETMOD_2.Core.Start
+namespace FLEETMOD_2.Core.Setup
 {
 	[HarmonyPatch(typeof(PLServer), "SpawnPlayerShip")]
 	internal class SpawnPlayerShip
