@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace FLEETMOD_2
 {
@@ -12,6 +13,11 @@ namespace FLEETMOD_2
         public override string Name() => $"{Mod.myversion} Configuration";
         public override void Draw()
         {
+            GUILayoutOption[] options = new GUILayoutOption[]
+            {
+                GUILayout.MaxWidth(120f)
+            };
+
             // Mod Enabled
             // < - - - - - - - - - - - - Gameplay - - - - - - - - - - - - >
             // Use Dialogue Spawning System       // Use Tab Menu (F1) Spawning System
@@ -26,6 +32,8 @@ namespace FLEETMOD_2
             // in-Crew PVP     // in-Fleet PVP    // Ship PVP
             // Faction Only Ship Spawns           // Need to convert to Faction
             // (Slider) Max Ship Count
+
+            Global.ModEnabled = GUILayout.Toggle(Global.ModEnabled, $"Enable {Mod.myversion}", options);
         }
     }
 }
