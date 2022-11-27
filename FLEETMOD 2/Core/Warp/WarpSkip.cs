@@ -12,6 +12,7 @@ namespace FLEETMOD_2.Core.Warp
 	[HarmonyPatch(typeof(PLServer), "Update")]
 	internal class WarpSkip
 	{
+		// Sets Admirals Nickname (Synced with all Clients) to skipwarp to allow Non-Admirals to know when they can skip warp
 		public static void Postfix(PLServer __instance)
 		{
 			if (__instance == null || PLNetworkManager.Instance == null || PLEncounterManager.Instance == null) return;
@@ -36,7 +37,8 @@ namespace FLEETMOD_2.Core.Warp
 			if (!Global.ModEnabled || PLServer.Instance == null || PLNetworkManager.Instance == null || PLNetworkManager.Instance.LocalPlayer == null) return;
 			if (PLServer.Instance.GameHasStarted && PLNetworkManager.Instance.LocalPlayer.GetHasStarted() && PLServer.Instance.GetPlayerFromPlayerID(0) != null)
 			{
-				if (PLServer.Instance.GetPlayerFromPlayerID(0).GetPhotonPlayer().NickName == "skipwarp" && PLNetworkManager.Instance.LocalPlayer.GetClassID() == 0) // If the skipwarp label should appear (Host nickname as skipwarp indicates we're in warp)
+				// If the skipwarp label should appear (Host nickname as skipwarp indicates we're in warp and can skip)
+				if (PLServer.Instance.GetPlayerFromPlayerID(0).GetPhotonPlayer().NickName == "skipwarp" && PLNetworkManager.Instance.LocalPlayer.GetClassID() == 0)
 				{
 					PLGlobal.SafeLabelSetText(__instance.SkipWarpLabel, ___cSkipWarpLabel.ToString(PLInput.Instance.GetPrimaryKeyStringForAction(PLInputBase.EInputActionName.skip_warp, true)));
 					__instance.SkipWarpLabel.enabled = true;
@@ -45,6 +47,8 @@ namespace FLEETMOD_2.Core.Warp
 				{
 					__instance.SkipWarpLabel.enabled = false;
 				}
+
+				// Code to ensure Skipwarp Label only appears as "skipwarp" if in-game as a pawn (Not on main menu etc)
 				string a2 = "";
 				if (PLCameraSystem.Instance != null)
 				{

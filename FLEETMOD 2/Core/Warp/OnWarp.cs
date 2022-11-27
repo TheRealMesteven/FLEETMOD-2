@@ -7,11 +7,13 @@ namespace FLEETMOD_2.Core.Warp
     [HarmonyPatch(typeof(PLShipInfoBase), "OnWarp")]
     internal class OnWarp
     {
+        // Engages Warp for ALL Fleet Ships
         public static bool Prefix(PLShipInfoBase __instance)
         {
             if (!Global.ModEnabled) return true;
             if (PhotonNetwork.isMasterClient && PLEncounterManager.Instance.PlayerShip == __instance as PLShipInfo)
             {
+                // Engages Warp for ALL Fleet Ships
                 foreach (int plshipID in Global.GetFleetShips())
                 {
                     PLShipInfoBase plshipInfoBase = PLEncounterManager.Instance.GetShipFromID(plshipID);

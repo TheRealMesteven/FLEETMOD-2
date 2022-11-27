@@ -141,6 +141,10 @@ namespace FLEETMOD_2
             }
         }
     }
+
+    /// <summary>
+    /// Fleetmod Critical Information about FleetShips
+    /// </summary>
     internal class ShipInfo
     {
         public int ShipID;
@@ -159,10 +163,14 @@ namespace FLEETMOD_2
                 RoleLimits = _RoleLimits;
             }
         }
+        
+        // Checks if Ship has slot available as class
         public bool CanJoinClass(int classID)
         {
             return GetPlayerOfClass(classID).Count < RoleLimits[classID];
         }
+
+        // Gets list of Players of class
         public List<int> GetPlayerOfClass(int classID)
         {
             List<int> list = new List<int>();

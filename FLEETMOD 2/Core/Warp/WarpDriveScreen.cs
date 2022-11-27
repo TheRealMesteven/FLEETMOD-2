@@ -16,11 +16,15 @@ namespace FLEETMOD_2.Core.Warp
             string text = "";
             string str = "";
             string str2 = "";
+
+            // Get Next Sector ID (For Non-Admiral Blind Jump Override)
             PLSectorInfo map = null;
             if (__instance != null && PLStarmap.Instance != null && PLStarmap.Instance.CurrentShipPath != null && PLStarmap.Instance.CurrentShipPath.Count > 1)
             {
                 map = PLStarmap.Instance.CurrentShipPath[1];
             }
+
+            // Get Status of Each FleetShip
             foreach (int pLShipID in Global.GetFleetShips())
             {
                 PLShipInfoBase plshipInfoBase = PLEncounterManager.Instance.GetShipFromID(pLShipID);
@@ -46,7 +50,8 @@ namespace FLEETMOD_2.Core.Warp
                     }
                 }
             }
-            ///
+
+            // Default-Game Screen Visuals
             PLGlobal.SafeGameObjectSetActive(___WarpDrivePanel.gameObject, !__instance.MyScreenHubBase.OptionalShipInfo.BlockingCombatTargetOnboard && __instance.MyScreenHubBase.OptionalShipInfo.WarpChargeStage != EWarpChargeStage.E_WCS_ACTIVE && __instance.MyScreenHubBase.OptionalShipInfo.NumberOfFuelCapsules > 0 && !__instance.MyScreenHubBase.OptionalShipInfo.InWarp && !__instance.MyScreenHubBase.OptionalShipInfo.Abandoned);
             PLGlobal.SafeGameObjectSetActive(___JumpComputerPanel.gameObject, !__instance.MyScreenHubBase.OptionalShipInfo.BlockingCombatTargetOnboard);
             PLGlobal.SafeGameObjectSetActive(___m_BlockingTargetOnboardPanel.gameObject, __instance.MyScreenHubBase.OptionalShipInfo.BlockingCombatTargetOnboard);
@@ -64,6 +69,8 @@ namespace FLEETMOD_2.Core.Warp
             }
             else
             {
+                // Fleetmod #1 Blindjump Override features.
+
                 /*if (__instance.MyScreenHubBase.OptionalShipInfo.BlindJumpUnlocked && PhotonNetwork.isMasterClient)
                 {
                     if (PhotonNetwork.isMasterClient && __instance.MyScreenHubBase.OptionalShipInfo.ShipID == PLNetworkManager.Instance.LocalPlayer.StartingShip.ShipID)
@@ -106,20 +113,24 @@ namespace FLEETMOD_2.Core.Warp
                         {
                             if (!PhotonNetwork.isMasterClient)
                             {*/
-                                ___BlindJumpWarning.text = "Target Sector";
-                                if (map != null && PLServer.Instance.m_ShipCourseGoals.Count > 0)
-                                {
-                                    ___BlindJumpBtnLabel.text = map.ID.ToString();
-                                }
-                                else
-                                {
-                                    ___BlindJumpBtnLabel.text = "No Course Set";
-                                }
+
+                // Overrides Blind Jump Label with Next-Course-Target Sector Display
+                ___BlindJumpWarning.text = "Target Sector";
+                if (map != null && PLServer.Instance.m_ShipCourseGoals.Count > 0)
+                {
+                    ___BlindJumpBtnLabel.text = map.ID.ToString();
+                }
+                else
+                {
+                    ___BlindJumpBtnLabel.text = "No Course Set";
+                }
                             /*}
                         }
                     }
                 }*/
             }
+
+            // Override the WarpDisplay Screen
             float warpChargePercentTotal = __instance.MyScreenHubBase.OptionalShipInfo.GetWarpChargePercentTotal();
             ___m_JumpButtonMask.clipOffset = new Vector2((warpChargePercentTotal - 1f) * ___m_JumpButtonMask.width, 0f);
             switch (__instance.MyScreenHubBase.OptionalShipInfo.WarpChargeStage)

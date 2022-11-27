@@ -6,12 +6,15 @@ namespace FLEETMOD_2.Core.Warp
     [HarmonyPatch(typeof(PLWarpDriveScreen), "JumpBtnClick")]
     internal class JumpBtnClick
     {
+        // Patch to ensure Fleet cannot warp if Unaligned / Uncharged / Unfueled
         public static bool Prefix(PLWarpDriveScreen __instance)
         {
             if (!Global.ModEnabled) return true;
             int UnalignedShips = 0;
             int UnchargedShips = 0;
             int UnFueledShips = 0;
+
+            // Get Status of Each FleetShip
             foreach (int pLShipID in Global.GetFleetShips())
             {
                 PLShipInfoBase plshipInfoBase = PLEncounterManager.Instance.GetShipFromID(pLShipID);
@@ -38,6 +41,8 @@ namespace FLEETMOD_2.Core.Warp
                     }
                 }
             }
+
+            // Check if should sync button press or a requirement has not been met
             if (__instance.MyScreenHubBase.OptionalShipInfo.GetIsPlayerShip() && !__instance.MyScreenHubBase.OptionalShipInfo.BlockingCombatTargetOnboard)
             {
                 bool flag8 = false;

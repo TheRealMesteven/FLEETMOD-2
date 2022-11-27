@@ -13,6 +13,7 @@ namespace FLEETMOD_2.Core.Warp
 			}
 			else
 			{
+				// Disallow Non-Modded warping.
 				if (!Global.FleetModClients.Contains(playerID))
 				{
 					return false;
@@ -26,6 +27,8 @@ namespace FLEETMOD_2.Core.Warp
 						PLServer.Instance.GetEstimatedServerMs() + 3000,
 						true
 					});
+
+					// Strange Mikey code which permits ships to warp without going invisible.
 					int num = UnityEngine.Random.Range(0, 10);
 					if (num == 50 && PLNetworkManager.Instance.LocalPlayer != null)
 					{

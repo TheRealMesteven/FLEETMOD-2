@@ -6,6 +6,7 @@ namespace FLEETMOD_2.Core.Warp
     [HarmonyPatch(typeof(PLShipInfoBase), "OnEndWarp")]
     internal class OnEndWarp
     {
+        // Skips warp for ALL Fleet Ships
         public static bool Prefix(PLShipInfoBase __instance)
         {
             if (!Global.ModEnabled) return true;

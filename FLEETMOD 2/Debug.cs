@@ -14,11 +14,14 @@ namespace FLEETMOD_2
         [HarmonyPatch(typeof(PLServer), "Update")]
         internal class Update
         {
+            // Debug Keybinds
             public static void Postfix(PLServer __instance)
             {
                 if (__instance != null && __instance.GameHasStarted && PLNetworkManager.Instance.LocalPlayer != null && PLNetworkManager.Instance.LocalPlayer.GetHasStarted() && PLEncounterManager.Instance.PlayerShip != null)
                 {
                     PLPlayer Player = PLNetworkManager.Instance.LocalPlayer;
+
+                    // F1 = Spawn Fleet Ship (Intrepid)
                     if (!PLNetworkManager.Instance.IsTyping && Input.GetKeyDown(KeyCode.F1))
                     {
                         GameObject gameObject = PhotonNetwork.Instantiate("NetworkPrefabs/" + PLGlobal.Instance.PlayerShipNetworkPrefabNames[0], new Vector3(50f, 50f, 50f), Quaternion.identity, 0, null);
@@ -33,14 +36,20 @@ namespace FLEETMOD_2
                         gameObject.GetComponent<PLShipInfo>().SetupShipStats(false, true);
                         ModMessage.SendRPC("Mest.Fleetmod", "FLEETMOD_2.ModMessages.FleetShipSync", PhotonTargets.Others, Global.SerializeFleetShips(Global.FleetShips).Cast<object>().ToArray());
                     }
+
+                    // F2 = Get Count of Fleetships & If current Ship is Fleetship
                     if (!PLNetworkManager.Instance.IsTyping && Input.GetKeyDown(KeyCode.F2))
                     {
                         Messaging.Echo(Player, $"{Global.GetFleetShips().Count} \n {Player.MyCurrentTLI.MyShipInfo.ShipNameValue} {(Global.GetFleetShips().Contains(Player.MyCurrentTLI.MyShipInfo.ShipID) ? "IS" : "IS NOT")} part of the Fleet");
                     }
+
+                    // F3 = Get Count of Fleetmodded Clients
                     if (!PLNetworkManager.Instance.IsTyping && Input.GetKeyDown(KeyCode.F3))
                     {
                         Messaging.Echo(Player, $"Count of Fleetmod Clients: {Global.FleetModClients.Count}");
                     }
+
+                    // F4 = Get Fleetship Names & Crew List
                     if (!PLNetworkManager.Instance.IsTyping && Input.GetKeyDown(KeyCode.F4))
                     {
                         StringBuilder Sb = new StringBuilder();
@@ -161,7 +170,9 @@ namespace FLEETMOD_2
                 }
             }
 
-
+            /// <summary>
+            /// Command to Change Class & Ship ([PlayerID/Name] [ShipID/Name] [ClassID/Name])
+            /// </summary>
             public class ChangeClass : ChatCommand
             {
                 public override string[] CommandAliases() => new string[] { "fmcc" };

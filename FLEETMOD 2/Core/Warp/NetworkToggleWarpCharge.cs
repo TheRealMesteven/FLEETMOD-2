@@ -11,6 +11,7 @@ namespace FLEETMOD_2.Core.Warp
             PLShipInfoBase shipFromID = PLEncounterManager.Instance.GetShipFromID(inShipID);
             if (shipFromID != null)
             {
+                // Allow Non-FleetModded Clients to interact with warp aside from Engaging / Skipping.
                 if (!Global.FleetModClients.Contains(PLServer.GetPlayerForPhotonPlayer(pmi.sender).GetPlayerID()) && (shipFromID.WarpChargeStage == EWarpChargeStage.E_WCS_READY || shipFromID.WarpChargeStage == EWarpChargeStage.E_WCS_ACTIVE))
                 {
                     PLServer.Instance.photonView.RPC("AddNotification", pmi.sender, new object[]
@@ -23,6 +24,7 @@ namespace FLEETMOD_2.Core.Warp
                     return false;
                 }
 
+                // Notification Management
                 if (PhotonNetwork.isMasterClient && pmi.sender != null && shipFromID.WarpChargeStage != (EWarpChargeStage)inWarpCharge && shipFromID != null && shipFromID.GetIsPlayerShip())
                 {
                     PLPlayer playerForPhotonPlayer = PLServer.GetPlayerForPhotonPlayer(pmi.sender);
