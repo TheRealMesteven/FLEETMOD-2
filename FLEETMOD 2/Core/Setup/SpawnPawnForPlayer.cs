@@ -10,7 +10,7 @@ namespace FLEETMOD_2.Core.Setup
     {
         public static void Postfix()
         {
-            if (!Global.ModEnabled /*|| PhotonNetwork.isMasterClient*/) return;
+            if (!Global.ModEnabled) return;
             ModMessage.SendRPC("Mest.Fleetmod", "FLEETMOD_2.ModMessages.FleetModClient", PhotonTargets.MasterClient, new object[] { });
         }
     }

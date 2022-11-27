@@ -11,6 +11,7 @@ namespace FLEETMOD_2.Core.Setup
 	{
 		public static void Postfix()
 		{
+			if (!Global.ModEnabled) return;
 			Global.FleetShips.Add(new ShipInfo(PLEncounterManager.Instance.PlayerShip.ShipID, new List<int>()));
 			ModMessage.SendRPC("Mest.Fleetmod", "FLEETMOD_2.ModMessages.FleetShipSync", PhotonTargets.Others, Global.SerializeFleetShips(Global.FleetShips).Cast<object>().ToArray());
 		}
@@ -20,6 +21,7 @@ namespace FLEETMOD_2.Core.Setup
 	{
 		public static void Postfix()
 		{
+			if (!Global.ModEnabled) return;
 			Global.FleetShips.Add(new ShipInfo(PLEncounterManager.Instance.PlayerShip.ShipID, new List<int>()));
 			ModMessage.SendRPC("Mest.Fleetmod", "FLEETMOD_2.ModMessages.FleetShipSync", PhotonTargets.Others, Global.SerializeFleetShips(Global.FleetShips).Cast<object>().ToArray());
 		}
