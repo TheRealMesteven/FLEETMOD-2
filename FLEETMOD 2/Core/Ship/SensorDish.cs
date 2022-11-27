@@ -47,7 +47,7 @@ namespace FLEETMOD_2.Core.Ship
 
 		public static void Fix(int NetID)
 		{
-			ModMessage.SendRPC("Mest.Fleetmod", "FLEETMOD_2.ModMessages.SensorDishCollectScrap", PhotonTargets.Others, new object[]
+			ModMessage.SendRPC(Mod.HarmonyIdent, "FLEETMOD_2.ModMessages.SensorDishCollectScrap", PhotonTargets.Others, new object[]
 			{
 				NetID,
 				PLNetworkManager.Instance.LocalPlayer.GetPawn().CurrentShip.ShipID

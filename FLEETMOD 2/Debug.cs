@@ -31,7 +31,7 @@ namespace FLEETMOD_2
                         gameObject.GetComponent<PLShipInfo>().ShipNameValue = $"Test Ship {Random.Range(0, 50)}";
                         gameObject.GetComponent<PLShipInfo>().LastAIAutoYellowAlertSetupTime = Time.time;
                         gameObject.GetComponent<PLShipInfo>().SetupShipStats(false, true);
-                        ModMessage.SendRPC("Mest.Fleetmod", "FLEETMOD_2.ModMessages.FleetShipSync", PhotonTargets.Others, Global.SerializeFleetShips(Global.FleetShips).Cast<object>().ToArray());
+                        ModMessage.SendRPC(Mod.HarmonyIdent, "FLEETMOD_2.ModMessages.FleetShipSync", PhotonTargets.Others, Global.SerializeFleetShips(Global.FleetShips).Cast<object>().ToArray());
                     }
                     if (!PLNetworkManager.Instance.IsTyping && Input.GetKeyDown(KeyCode.F2))
                     {
@@ -183,7 +183,7 @@ namespace FLEETMOD_2
                         Messaging.Notification($"The Player {PlayerID} / Ship {ShipID} / Class {ClassID} is invalid (-1)", PLServer.Instance.GetPlayerFromPlayerID(PlayerID));
                         return;
                     }
-                    ModMessage.SendRPC("Mest.Fleetmod", "FLEETMOD_2.ModMessages.SetPlayerAsShip", PhotonTargets.MasterClient, new object[]
+                    ModMessage.SendRPC(Mod.HarmonyIdent, "FLEETMOD_2.ModMessages.SetPlayerAsShip", PhotonTargets.MasterClient, new object[]
                     {
                         PlayerID,
                         ShipID,
