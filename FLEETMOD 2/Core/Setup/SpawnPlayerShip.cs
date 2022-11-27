@@ -14,7 +14,7 @@ namespace FLEETMOD_2.Core.Setup
 			if (!Global.ModEnabled) return;
 			// Initial Spawning Ship Adds to Fleet Crew
 			Global.FleetShips.Add(new ShipInfo(PLEncounterManager.Instance.PlayerShip.ShipID, new List<int>()));
-			ModMessage.SendRPC("Mest.Fleetmod", "FLEETMOD_2.ModMessages.FleetShipSync", PhotonTargets.Others, Global.SerializeFleetShips(Global.FleetShips).Cast<object>().ToArray());
+			ModMessage.SendRPC(Mod.HarmonyIdent, "FLEETMOD_2.ModMessages.FleetShipSync", PhotonTargets.Others, Global.SerializeFleetShips(Global.FleetShips).Cast<object>().ToArray());
 		}
 	}
 	[HarmonyPatch(typeof(PLServer), "SpawnPlayerShipFromSaveData")]
@@ -25,7 +25,7 @@ namespace FLEETMOD_2.Core.Setup
 			if (!Global.ModEnabled) return;
 			// Initial Spawning Ship Adds to Fleet Crew
 			Global.FleetShips.Add(new ShipInfo(PLEncounterManager.Instance.PlayerShip.ShipID, new List<int>()));
-			ModMessage.SendRPC("Mest.Fleetmod", "FLEETMOD_2.ModMessages.FleetShipSync", PhotonTargets.Others, Global.SerializeFleetShips(Global.FleetShips).Cast<object>().ToArray());
+			ModMessage.SendRPC(Mod.HarmonyIdent, "FLEETMOD_2.ModMessages.FleetShipSync", PhotonTargets.Others, Global.SerializeFleetShips(Global.FleetShips).Cast<object>().ToArray());
 		}
 	}
 }

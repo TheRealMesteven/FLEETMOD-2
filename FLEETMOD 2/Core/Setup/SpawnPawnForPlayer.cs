@@ -12,7 +12,7 @@ namespace FLEETMOD_2.Core.Setup
         {
             if (!Global.ModEnabled) return;
             // Update Admiral on Player having FleetMod
-            ModMessage.SendRPC("Mest.Fleetmod", "FLEETMOD_2.ModMessages.FleetModClient", PhotonTargets.MasterClient, new object[] { });
+            ModMessage.SendRPC(Mod.HarmonyIdent, "FLEETMOD_2.ModMessages.FleetModClient", PhotonTargets.MasterClient, new object[] { });
         }
     }
     [HarmonyPatch(typeof(PLServer), "StartPlayer")]
@@ -27,7 +27,7 @@ namespace FLEETMOD_2.Core.Setup
             {
                 ShipInfo shipInfo = Global.FleetShips[Global.GetFleetShipIndex(Global.FleetModSpawningPlayers[inID])];
                 shipInfo.Crew.Add(inID);
-                ModMessage.SendRPC("Mest.Fleetmod", "FLEETMOD_2.ModMessages.FleetShipSync", PhotonTargets.Others, Global.SerializeFleetShips(Global.FleetShips).Cast<object>().ToArray());
+                ModMessage.SendRPC(Mod.HarmonyIdent, "FLEETMOD_2.ModMessages.FleetShipSync", PhotonTargets.Others, Global.SerializeFleetShips(Global.FleetShips).Cast<object>().ToArray());
             }
 
         }

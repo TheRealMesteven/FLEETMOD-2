@@ -14,8 +14,8 @@ namespace FLEETMOD_2.ModMessages
             if (Global.ModEnabled && pLPlayer != null && PhotonNetwork.isMasterClient && !Global.FleetModClients.Contains(pLPlayer.GetPlayerID()))
             {
                 Global.FleetModClients.Add(pLPlayer.GetPlayerID());
-                ModMessage.SendRPC("Mest.Fleetmod", "FLEETMOD_2.ModMessages.FleetShipSync", PhotonTargets.Others, Global.SerializeFleetShips(Global.FleetShips).Cast<object>().ToArray());
-                ModMessage.SendRPC("Mest.Fleetmod", "FLEETMOD_2.ModMessages.FleetModClientSync", PhotonTargets.Others, Global.FleetModClients.ToArray().Cast<object>().ToArray());
+                ModMessage.SendRPC(Mod.HarmonyIdent, "FLEETMOD_2.ModMessages.FleetShipSync", PhotonTargets.Others, Global.SerializeFleetShips(Global.FleetShips).Cast<object>().ToArray());
+                ModMessage.SendRPC(Mod.HarmonyIdent, "FLEETMOD_2.ModMessages.FleetModClientSync", PhotonTargets.Others, Global.FleetModClients.ToArray().Cast<object>().ToArray());
             }
         }
     }
