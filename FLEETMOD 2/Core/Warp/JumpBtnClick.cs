@@ -10,35 +10,18 @@ namespace FLEETMOD_2.Core.Warp
         public static bool Prefix(PLWarpDriveScreen __instance)
         {
             if (!Global.ModEnabled) return true;
-            int UnalignedShips = 0;
-            int UnchargedShips = 0;
-            int UnFueledShips = 0;
+            bool CantWarp = false;
 
             // Get Status of Each FleetShip
             foreach (int pLShipID in Global.GetFleetShips())
             {
                 PLShipInfoBase plshipInfoBase = PLEncounterManager.Instance.GetShipFromID(pLShipID);
-                if (plshipInfoBase.GetIsPlayerShip() && plshipInfoBase != null)
+                if (plshipInfoBase.GetIsPlayerShip() && plshipInfoBase != null && (PLStarmap.Instance.CurrentShipPath.Count <= 1 
+                || !(PLServer.Instance.ClientHasFullStarmap && plshipInfoBase.WarpTargetID != PLStarmap.Instance.CurrentShipPath[1].ID)
+                || plshipInfoBase.WarpChargeStage != EWarpChargeStage.E_WCS_READY || plshipInfoBase.NumberOfFuelCapsules < 1))
                 {
-                    if (PLStarmap.Instance.CurrentShipPath.Count > 1)
-                    {
-                        if (PLServer.Instance.ClientHasFullStarmap && plshipInfoBase.WarpTargetID != PLStarmap.Instance.CurrentShipPath[1].ID)
-                        {
-                            UnalignedShips++;
-                        }
-                    }
-                    else
-                    {
-                        UnalignedShips = 1;
-                    }
-                    if (plshipInfoBase.WarpChargeStage != EWarpChargeStage.E_WCS_READY)
-                    {
-                        UnchargedShips++;
-                    }
-                    if (plshipInfoBase.NumberOfFuelCapsules < 1)
-                    {
-                        UnFueledShips++;
-                    }
+                    CantWarp = true;
+                    break;
                 }
             }
 
@@ -59,8 +42,7 @@ namespace FLEETMOD_2.Core.Warp
                         break;
                     case EWarpChargeStage.E_WCS_READY:
                         {
-                            if (UnalignedShips == 0 && UnchargedShips == 0 && UnFueledShips == 0 && __instance.MyScreenHubBase.OptionalShipInfo.WarpTargetID != -1
-                                && __instance.MyScreenHubBase.OptionalShipInfo.NumberOfFuelCapsules > 0
+                            if (!CantWarp && __instance.MyScreenHubBase.OptionalShipInfo.WarpTargetID != -1
                                 && PLBeaconInfo.GetBeaconStatAdditive(EBeaconType.E_WARP_DISABLE, __instance.MyScreenHubBase.OptionalShipInfo.GetIsPlayerShip()) < 0.5f)
                             {
                                 flag8 = true;
