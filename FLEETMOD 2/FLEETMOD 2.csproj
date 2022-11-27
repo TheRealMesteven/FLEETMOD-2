@@ -31,10 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="!CustomSaves">
-      <HintPath>lib\!CustomSaves.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="0Harmony">
       <HintPath>lib\0Harmony.dll</HintPath>
       <Private>False</Private>
