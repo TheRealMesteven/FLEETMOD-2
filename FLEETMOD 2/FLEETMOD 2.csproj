@@ -89,6 +89,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
     <Compile Include="Core\Server\LoadingTips.cs" />
     <Compile Include="Core\Ship\AddHostileShip.cs" />
     <Compile Include="Core\Ship\ChangeScreenPanelColour.cs" />
