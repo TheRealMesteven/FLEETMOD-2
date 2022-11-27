@@ -21,7 +21,7 @@ namespace FLEETMOD_2.Core.Ship
 				bool flag = false;
 				foreach (PLPlayer plplayer in PLServer.Instance.AllPlayers)
 				{
-					if (plplayer != null && plplayer.StartingShip != __instance && !Global.GetFleetShips().Contains(plplayer.StartingShip.ShipID) && plplayer.PlayerLifeTime > 5f && plplayer.GetPawn() != null && plplayer.GetPawn().CurrentShip == __instance)
+					if (plplayer != null && plplayer.StartingShip != null && plplayer.StartingShip != __instance && !Global.GetFleetShips().Contains(plplayer.StartingShip.ShipID) && plplayer.PlayerLifeTime > 5f && plplayer.GetPawn() != null && plplayer.GetPawn().CurrentShip == __instance)
 					{
 						flag = true;
 						break;
