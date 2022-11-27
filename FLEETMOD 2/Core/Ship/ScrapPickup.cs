@@ -9,6 +9,7 @@ namespace FLEETMOD_2.Core.Ship
     [HarmonyPatch(typeof(PLSpaceScrap), "Update")]
     internal class ScrapPickup
     {
+		// Replaces Playership with a method that calculates the closest ship.
         private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
 			return HarmonyHelpers.PatchBySequence(instructions, new CodeInstruction[]
@@ -29,6 +30,7 @@ namespace FLEETMOD_2.Core.Ship
 	[HarmonyPatch(typeof(PLSpaceScrap), "OnCollect")]
 	internal class ScrapPickupCollect
 	{
+		// Replaces Playership with a method that calculates the closest ship.
 		private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
 			List<CodeInstruction> targetSequence = new List<CodeInstruction>

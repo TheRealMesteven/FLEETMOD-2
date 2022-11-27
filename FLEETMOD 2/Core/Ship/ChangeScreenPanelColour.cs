@@ -6,6 +6,7 @@ namespace FLEETMOD_2.Core.Ship
 	[HarmonyPatch(typeof(PLUIScreen), "TargetRootPanelColor")]
 	internal class ChangeScreenPanelColour
 	{
+		// Changes the Border of Ship Screens. Default colouration but if FleetShip, is overrided to be white
 		private static bool Prefix(PLUIScreen __instance, ref Color __result)
 		{
 			if (__instance.MyScreenHubBase.OptionalShipInfo != null)

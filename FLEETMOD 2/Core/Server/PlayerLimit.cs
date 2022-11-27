@@ -15,11 +15,14 @@ namespace FLEETMOD_2.Core.Server
     [HarmonyPatch(typeof(PLServer), "Update")]
     internal class PlayerLimitOverride
     {
+        // Overrides the PlayerLimit to scale with the Total Sum of the Role Limits
         public static void Postfix(PLServer __instance)
         {
-            if (!Global.ModEnabled) return;
-            if (__instance == null || !__instance.GameHasStarted || PLNetworkManager.Instance.LocalPlayer == null || !PLNetworkManager.Instance.LocalPlayer.GetHasStarted() || PLEncounterManager.Instance.PlayerShip == null) return;
-            if (PhotonNetwork.isMasterClient && Time.time - __instance.LobbyPropertiesUpdateLastTime > 0.5f && PhotonNetwork.room != null)
+            if (!Global.ModEnabled || !PhotonNetwork.isMasterClient
+            || __instance == null || !__instance.GameHasStarted || PLNetworkManager.Instance.LocalPlayer == null || !PLNetworkManager.Instance.LocalPlayer.GetHasStarted() || PLEncounterManager.Instance.PlayerShip == null) return;
+
+            // Recreate the normal Hashtable data
+            if (Time.time - __instance.LobbyPropertiesUpdateLastTime > 0.5f && PhotonNetwork.room != null)
             {
                 __instance.LobbyPropertiesUpdateLastTime = Time.time;
                 int num = 0;
@@ -80,6 +83,8 @@ namespace FLEETMOD_2.Core.Server
                     PhotonNetwork.room.SetCustomProperties(hashtable, null, false);
                 }
             }
+
+            // Iterate over the FleetShip variables to get the total Crew Count and replace the MaxPlayer count
             if (Time.time - PLServer.Instance.LobbyPropertiesUpdateLastTime > 0.2f && PhotonNetwork.room != null)
             {
                 int num2 = 0;
@@ -98,17 +103,21 @@ namespace FLEETMOD_2.Core.Server
     [HarmonyPatch(typeof(PLServer), "SetPlayerAsClassID")]
     internal class ShipClassLimitOverride
     {
+        // Override the RPC "SetPlayerAsClassID" to allow multiple players in one Class type.
         private static bool Prefix(PLServer __instance, ref int playerID, ref int classID, ref List<PLPlayer> ___LocalCachedPlayerByClass)
         {
             PLPlayer Player = PLNetworkManager.Instance.LocalPlayer;
             if (!PhotonNetwork.isMasterClient || !Global.ModEnabled) return true;
+
             if (classID > 4 || classID < -1) return false;
             PLPlayer playerFromPlayerID = PLServer.Instance.GetPlayerFromPlayerID(playerID);
             if (playerFromPlayerID != null)
             {
+                // If the Player hasnt started, they've just joined and have no ship.
                 if (!playerFromPlayerID.GetHasStarted())
                 {
                     bool flag = false;
+                    // Iterate over all Fleet Ships looking for an Available Class
                     foreach (ShipInfo shipInfo in Global.FleetShips)
                     {
                         if (shipInfo.CanJoinClass(classID) && playerFromPlayerID.GetClassID() != classID)
@@ -120,6 +129,7 @@ namespace FLEETMOD_2.Core.Server
                                 playerFromPlayerID.GetPlayerName(false),
                                 classID
                             });
+                            // When spawning the Player, they need to know what Ship they should be assigned to.
                             if (Global.FleetModSpawningPlayers.ContainsKey(playerID))
                             {
                                 Global.FleetModSpawningPlayers[playerID] = shipInfo.ShipID;
@@ -138,6 +148,8 @@ namespace FLEETMOD_2.Core.Server
                         Messaging.Notification("Player " + playerFromPlayerID.GetPlayerName(false) + " Is trying to join as " + PLPlayer.GetClassNameFromID(classID), PLNetworkManager.Instance.LocalPlayer, 0, 6000, false);
                     }
                 }
+                // Else, Player has an existing ship to look for available role with.
+                // (Players with a ship already use a different Mod Message to change Ship & Class)
                 else
                 {
                     int PlayerShip = Global.GetPlayersShip(playerID);

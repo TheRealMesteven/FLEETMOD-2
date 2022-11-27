@@ -10,6 +10,7 @@ namespace FLEETMOD_2.Core.Ship
     [HarmonyPatch(typeof(PLRepairDepot), "Update")]
     internal class RepairDepot
     {
+        // If a ship is within range of the Repair Depot, they are the target rather than needing to be PlayerShip
         public static bool Prefix(PLRepairDepot __instance, ref PLSensorObjectString[] ___SensorStrings)
         {
             if (!Global.ModEnabled) return true;

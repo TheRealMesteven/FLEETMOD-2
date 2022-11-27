@@ -10,6 +10,7 @@ namespace FLEETMOD_2.Core.Server
 	[HarmonyPatch(typeof(PLNetworkManager), "Update")]
 	internal class LoadingTips
 	{
+		// Resets all the existing Tip Strings with Custom Defined ones.
 		public static bool Prefix(ref int ___TipNumber, ref List<string> ___TipStrings)
 		{
 			if (___TipStrings.Count > 20)

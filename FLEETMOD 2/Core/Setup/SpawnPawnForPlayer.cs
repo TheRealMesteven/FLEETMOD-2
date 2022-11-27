@@ -11,6 +11,7 @@ namespace FLEETMOD_2.Core.Setup
         public static void Postfix()
         {
             if (!Global.ModEnabled) return;
+            // Update Admiral on Player having FleetMod
             ModMessage.SendRPC("Mest.Fleetmod", "FLEETMOD_2.ModMessages.FleetModClient", PhotonTargets.MasterClient, new object[] { });
         }
     }
@@ -20,6 +21,7 @@ namespace FLEETMOD_2.Core.Setup
         public static void Postfix(PLServer __instance, int inID)
         {
             if (!Global.ModEnabled) return;
+            // Adds Spawning Player to Fleet and Update Crew
             PLPlayer playerAtID = PLServer.Instance.GetPlayerFromPlayerID(inID);
             if (playerAtID != null && Global.FleetModSpawningPlayers.ContainsKey(inID))
             {

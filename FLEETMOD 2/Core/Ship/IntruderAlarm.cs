@@ -12,6 +12,7 @@ namespace FLEETMOD_2.Core.Ship
     [HarmonyPatch(typeof(PLShipInfo), "CheckForIntruders")]
     internal class IntruderAlarm
     {
+		// Overrides the default CheckForIntruders with additional checks for intruders being from FleetShip
 		protected static FieldInfo FieldInfo = AccessTools.Field(typeof(PLShipInfo), "LastIntruderAlarmStartedTime");
         public static bool Prefix(PLShipInfo __instance)
         {
