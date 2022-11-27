@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>D:\SteamLibrary\steamapps\common\PULSARLostColony\Mods\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -127,19 +127,21 @@
     <Folder Include="Core\Visuals\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- Copy extra files from solution dir to output dir (e.g., README.md) -->
   <Target Name="CopyMarkdownFiles" AfterTargets="AfterBuild">
     <CreateItem Include="$(SolutionDir)\*.md">
       <Output TaskParameter="Include" ItemName="MarkdownFiles" />
     </CreateItem>
     <Copy SourceFiles="@(MarkdownFiles)" DestinationFiles="@(MarkdownFiles->'$(OutDir)\%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
-  <Target Name="DeployPlugin" AfterTargets="CopyMarkdownFiles" Condition="'$(PULSAR_PATH)' != ''">
+  <!-- Copy select files from output dir to Mods dir -->
+  <Target Name="DeployMod" AfterTargets="CopyMarkdownFiles" Condition="'$(PULSAR_PATH)' != ''">
     <Error Condition="!Exists('$(PULSAR_PATH)')" Text="PULSAR_PATH set but directory doesn't exist!  Ensure the path is right: PULSAR_PATH='$(PULSAR_PATH)'" />
-    <CombinePath BasePath="$(PULSAR_PATH)" Paths="PULSAR_LostColony_Data\Managed" >
-      <Output TaskParameter="CombinedPaths" PropertyName="ManagedDir"/>
+    <CombinePath BasePath="$(PULSAR_PATH)" Paths="PULSAR_LostColony_Data\Managed">
+      <Output TaskParameter="CombinedPaths" PropertyName="ManagedDir" />
     </CombinePath>
-    <CombinePath BasePath="$(PULSAR_PATH)" Paths="PULSAR_LostColony_Data\Managed\Plugins" >
-      <Output TaskParameter="CombinedPaths" PropertyName="PluginsDir"/>
+    <CombinePath BasePath="$(PULSAR_PATH)" Paths="Mods">
+      <Output TaskParameter="CombinedPaths" PropertyName="ModsDir" />
     </CombinePath>
     <CreateItem Include="$(TargetDir)\*.md">
       <Output TaskParameter="Include" ItemName="MarkdownFiles" />
@@ -147,8 +149,8 @@
     <CreateItem Include="$(TargetDir)\*.dll*">
       <Output TaskParameter="Include" ItemName="Assemblies" />
     </CreateItem>
-    <Message Importance="High" Text="Copying build output to Plugins directory: $(PluginsDir)" />
-    <Copy SourceFiles="@(MarkdownFiles)" DestinationFiles="@(MarkdownFiles->'$(PluginsDir)\%(RecursiveDir)%(Filename)%(Extension)')" />
-    <Copy SourceFiles="@(Assemblies)" DestinationFiles="@(Assemblies->'$(PluginsDir)\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Message Importance="High" Text="Copying build output to Mods directory: $(ModsDir)" />
+    <Copy SourceFiles="@(MarkdownFiles)" DestinationFiles="@(MarkdownFiles->'$(ModsDir)\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(Assemblies)" DestinationFiles="@(Assemblies->'$(ModsDir)\%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
 </Project>
