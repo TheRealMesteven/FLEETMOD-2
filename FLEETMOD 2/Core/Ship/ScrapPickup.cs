@@ -51,6 +51,7 @@ namespace FLEETMOD_2.Core.Ship
 		// Changes PlayerShip -> Nearest ship for pickup calculations.
 		public static PLShipInfo CalculateNearestShip(PLSpaceScrap scrap)
         {
+			if (!Global.ModEnabled) return PLEncounterManager.Instance.PlayerShip;
 			if (scrap != null)
 			{
 				Vector3 position = scrap.transform.position;

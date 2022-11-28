@@ -47,6 +47,13 @@ namespace FLEETMOD_2.Core.Ship
 
 		public static void Fix(int NetID)
 		{
+			if (!Global.ModEnabled)
+            {
+				PLNetworkManager.Instance.LocalPlayer.GetPawn().CurrentShip.photonView.RPC("RequestScrapCollectFromSensorDish", PhotonTargets.MasterClient, new object[]
+				{
+					NetID
+				});
+			}
 			ModMessage.SendRPC(Mod.HarmonyIdent, "FLEETMOD_2.ModMessages.SensorDishCollectScrap", PhotonTargets.Others, new object[]
 			{
 				NetID,
