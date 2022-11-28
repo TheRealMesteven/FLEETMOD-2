@@ -29,6 +29,13 @@ namespace FLEETMOD_2
             // (Slider) Max Ship Count
 
             Global.ModEnabled = GUILayout.Toggle(Global.ModEnabled, $"Enable {Mod.myversion}");
+            GUILayout.Label("-- Ship Spawning --");
+            GUILayout.BeginHorizontal();
+            //CampaignShipsOnly = GUILayout.Toggle(CampaignShipsOnly, "Campaign Ships Only");
+            FactionShipsOnly = GUILayout.Toggle(FactionShipsOnly, "Faction Ships Only");
+            GUILayout.EndHorizontal();
         }
+        public static bool CampaignShipsOnly = false;
+        public static bool FactionShipsOnly = false;
     }
 }

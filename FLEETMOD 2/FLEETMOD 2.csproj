@@ -91,6 +91,8 @@
     <Compile Include="Config.cs" />
     <Compile Include="Core\Server\LoadingTips.cs" />
     <Compile Include="Core\Setup\ShipSpawnMenu.cs" />
+    <Compile Include="Core\Setup\ShipSpawnMenuDesc.cs" />
+    <Compile Include="Core\Setup\ShipSpawnMenuLocked.cs" />
     <Compile Include="Core\Ship\AddHostileShip.cs" />
     <Compile Include="Core\Ship\ChangeScreenPanelColour.cs" />
     <Compile Include="Core\Ship\FleetShipIsPlayerShip.cs" />

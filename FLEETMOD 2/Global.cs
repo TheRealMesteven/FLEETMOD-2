@@ -140,6 +140,32 @@ namespace FLEETMOD_2
                 return null;
             }
         }
+
+        public static int ShipTypeToFaction(int ShipType)
+        {
+            switch (ShipType)
+            {
+                case (int)EShipType.E_INTREPID:
+                case (int)EShipType.E_ROLAND:
+                case (int)EShipType.E_OUTRIDER:
+                case (int)EShipType.E_ABYSS_PLAYERSHIP:
+                    return 0;
+                case (int)EShipType.E_STARGAZER:
+                case (int)EShipType.E_CARRIER:
+                    return 1;
+                case (int)EShipType.E_WDCRUISER:
+                case (int)EShipType.E_DESTROYER:
+                case (int)EShipType.E_ANNIHILATOR:
+                    return 2;
+                case (int)EShipType.E_FLUFFY_DELIVERY:
+                case (int)EShipType.E_FLUFFY_TWO:
+                    return 3;
+                case (int)EShipType.E_POLYTECH_SHIP:
+                    return 5;
+                default:
+                    return -1;
+            }
+        }
     }
 
     /// <summary>

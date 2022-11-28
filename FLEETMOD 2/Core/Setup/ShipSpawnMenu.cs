@@ -1,14 +1,8 @@
 ﻿using HarmonyLib;
 using PulsarModLoader;
-using PulsarModLoader.Patches;
-using PulsarModLoader.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using static PulsarModLoader.Patches.HarmonyHelpers;
 
@@ -29,11 +23,11 @@ namespace FLEETMOD_2.Core.Setup
             PLTabMenu.Instance.TabMenuActive = false;
         }
     }
+
     [HarmonyPatch(typeof(PLUICreateGameMenu), "ClickEngage")]
     internal class ShipSpawnMenu
     {
         // Overriding the ClickEngage button on the CreateGameMenu so that ingame it creates a ship using the information provided.
-        protected static FieldInfo FieldInfo = AccessTools.Field(typeof(PLUICreateGameMenu), "CampaignMode");
         public static bool Prefix(PLUICreateGameMenu __instance, ref int ___CurrentSelectedShipIndex)
         {
             if (!Global.ModEnabled || PLServer.Instance == null || !PLServer.Instance.GameHasStarted) return true;
@@ -69,6 +63,7 @@ namespace FLEETMOD_2.Core.Setup
             return false;
         }
     }
+
     [HarmonyPatch(typeof(PLUIInsideWorldUI), "Update")]
     internal class UIInsideWorldUIPatch
     {
@@ -82,15 +77,16 @@ namespace FLEETMOD_2.Core.Setup
                 new CodeInstruction(OpCodes.Ldfld, AccessTools.Field(typeof(PLAbyssMap), "ShowOnScreen")),
             };
             // Gets CodeInstruction to exit if when null == true
-            int InstructionIndex = FindSequence(instructions, targetSequence, CheckMode.ALWAYS, true) - (targetSequence.Count() + 1);
+            int InstructionIndex = FindSequence(instructions, targetSequence, CheckMode.ALWAYS, false) - (targetSequence.Count() + 1);
             List<CodeInstruction> patchSequence = new List<CodeInstruction>
             {
                 new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(UIInsideWorldUIFix), "NullCheck", null, null)),
                 instructions.ToList()[InstructionIndex]
             };
-            return PatchBySequence(instructions, targetSequence, patchSequence, PatchMode.BEFORE, CheckMode.ALWAYS, true);
+            return PatchBySequence(instructions, targetSequence, patchSequence, PatchMode.BEFORE, CheckMode.ALWAYS, false);
         }
     }
+
     internal class UIInsideWorldUIFix
     {
         public static bool NullCheck()
@@ -99,3 +95,20 @@ namespace FLEETMOD_2.Core.Setup
         }
     }
 }
+
+// -- Ship Index --
+// Intrepid = 0
+// Cruiser = 1
+// Stargazer = 2
+// Roland = 3
+// Destroyer = 4
+// Carrier = 5
+// Outrider = 6
+// Fluffy = 7
+// Annihilator = 8
+// Suncircler = 9
+// Interceptor = 10
+// Sword = 11
+// Paladin = 12
+// Fluffy 2 = 13
+// URV = 14
