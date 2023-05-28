@@ -88,48 +88,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config.cs" />
-    <Compile Include="Core\Server\LoadingTips.cs" />
-    <Compile Include="Core\Setup\ShipSpawnMenu.cs" />
-    <Compile Include="Core\Setup\ShipSpawnMenuDesc.cs" />
-    <Compile Include="Core\Setup\ShipSpawnMenuLocked.cs" />
-    <Compile Include="Core\Ship\AddHostileShip.cs" />
-    <Compile Include="Core\Ship\ChangeScreenPanelColour.cs" />
-    <Compile Include="Core\Ship\FleetShipIsPlayerShip.cs" />
-    <Compile Include="Core\Ship\GetIsPlayerShip.cs" />
-    <Compile Include="Core\Server\PlayerLimit.cs" />
-    <Compile Include="Core\Ship\IntruderAlarm.cs" />
-    <Compile Include="Core\Ship\RepairDepot.cs" />
-    <Compile Include="Core\Ship\ScrapPickup.cs" />
-    <Compile Include="Core\Ship\SensorDish.cs" />
-    <Compile Include="Core\Ship\ShouldBeHostileToShip.cs" />
-    <Compile Include="Core\Setup\SpawnPawnForPlayer.cs" />
-    <Compile Include="Core\Setup\SpawnPlayerShip.cs" />
-    <Compile Include="Core\Setup\Start.cs" />
-    <Compile Include="Core\Ship\UpdateShipName.cs" />
-    <Compile Include="Core\Warp\CPEI_HandleActivateWarpDrive.cs" />
-    <Compile Include="Core\Warp\JumpBtnClick.cs" />
-    <Compile Include="Core\Warp\NetworkToggleWarpCharge.cs" />
-    <Compile Include="Core\Warp\OnButtonClick.cs" />
-    <Compile Include="Core\Warp\OnEndWarp.cs" />
-    <Compile Include="Core\Warp\OnWarp.cs" />
-    <Compile Include="Core\Warp\WarpDriveScreen.cs" />
-    <Compile Include="Core\Warp\WarpSkip.cs" />
-    <Compile Include="Core\Warp\WarpSkipButtonClicked.cs" />
-    <Compile Include="Debug.cs" />
     <Compile Include="Mod.cs" />
-    <Compile Include="ModMessages\FleetModClient.cs" />
-    <Compile Include="ModMessages\FleetModClientSync.cs" />
-    <Compile Include="ModMessages\FleetShipSync.cs" />
-    <Compile Include="ModMessages\SensorDishCollectScrap.cs" />
-    <Compile Include="ModMessages\ServerCreateShip.cs" />
-    <Compile Include="ModMessages\SetPlayerAsShip.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Global.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Visuals\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- Copy extra files from solution dir to output dir (e.g., README.md) -->
   <Target Name="CopyMarkdownFiles" AfterTargets="AfterBuild">
